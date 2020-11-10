@@ -1,0 +1,28 @@
+# OS X
+.DS_Store*
+Icon?
+._*
+*.app
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# golang
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# test and log
+*.test
+*.log
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Coveralls
+*.out
+

@@ -1,0 +1,48 @@
+server {
+    listen               80;
+    listen               [::]:80;
+    server_name          ~^(?:www)?\.(<domain>.+)\.com.tw$;
+
+    return 301           https://$server_name$request_uri;
+}
+
+# zhenhai.com.tw
+server {
+    listen               443 ssl;
+    listen               [::]:443 ssl;
+    server_name  www.zhenhai.com.tw zhenhai.com.tw;
+
+    include /etc/nginx/ssl.conf;
+
+    ssl_certificate /etc/letsencrypt/live/zhenhai.com.tw/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/zhenhai.com.tw/privkey.pem;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header HOST $http_host;
+
+        root   /zhenhai/website/src/HTML/;
+        index  index.html index.htm;
+    }
+}
+
+# labeling.zhenhai.com.tw
+server {
+    listen               443 ssl;
+    listen               [::]:443 ssl;
+    server_name  labeling.zhenhai.com.tw;
+
+    include /etc/nginx/ssl.conf;
+
+    ssl_certificate /etc/letsencrypt/live/zhenhai.com.tw/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/zhenhai.com.tw/privkey.pem;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header HOST $http_host;
+
+        root   /zhenhai/website/labeling/;
+        index  index.html index.htm;
+    }
+}
+
